@@ -13,7 +13,7 @@
     "test:fixed": "pnpm build:fixed && playwright test"
   },
   "dependencies": {
-    "@nuxtjs/mdc": "^0.22.1",
+    "@nuxtjs/mdc": "^0.22.2",
     "nuxt": "4.5.1"
   },
   "devDependencies": {

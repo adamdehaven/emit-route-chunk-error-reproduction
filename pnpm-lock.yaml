@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@nuxtjs/mdc':
-        specifier: ^0.22.1
+        specifier: ^0.22.2
         version: 0.22.2(magic-string@1.1.0)(magicast@0.5.3)(oxc-parser@0.140.0)(rolldown@1.2.0)(unplugin@3.3.0(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.3)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)))
       nuxt:
         specifier: 4.5.1

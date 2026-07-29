@@ -76,6 +76,30 @@ pnpm build:fixed  && pnpm preview   # click "Go to /other" -> instant SPA naviga
 The reload is reliable (8/8 runs) and reproduces on the plain Node preset — no Cloudflare or other
 hosting environment is required.
 
+## Verify the fix at the source (patched `@nuxtjs/mdc`)
+
+`nuxtjs-mdc-0.22.2.tgz` in this directory is a build of `@nuxtjs/mdc` with the one-line fix
+(removing `/* @vite-ignore */` so `#mdc-imports` / `#mdc-configs` resolve on the client). Swapping
+it in fixes the reload **at the source** — the `vite:preloadError` never fires, so
+`emitRouteChunkError: 'automatic-immediate'` has nothing to react to.
+
+```bash
+# 1. See the bug first (published @nuxtjs/mdc):
+pnpm build:broken && pnpm preview
+#    open http://localhost:3000 with DevTools, click "Go to /other" -> FULL PAGE RELOAD,
+#    console shows: [preload-error] ... Failed to resolve module specifier '#mdc-imports'
+
+# 2. Install the patched build from the local tarball:
+pnpm add @nuxtjs/mdc@file:./nuxtjs-mdc-0.22.2.tgz
+
+# 3. Rebuild the SAME broken config and preview again:
+pnpm build:broken && pnpm preview
+#    click "Go to /other" -> instant SPA navigation, NO reload, NO [preload-error] in the console
+#    (emitRouteChunkError is still 'automatic-immediate' — the MDC fix removed the trigger)
+```
+
+`pnpm test:broken` also flips from ❌ to ✅ after step 3.
+
 ## Expected vs actual
 
 - **Expected:** a non-fatal `vite:preloadError` (the import is caught and the navigation completes)
