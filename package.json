@@ -1,0 +1,22 @@
+{
+  "name": "emit-route-chunk-error-reproduction",
+  "private": true,
+  "type": "module",
+  "description": "Minimal reproduction: experimental.emitRouteChunkError: 'automatic-immediate' forces a full-page reload on ordinary client-side navigation in Nuxt 4.5.x, triggered by a real non-fatal vite:preloadError from @nuxtjs/mdc's client-side import('#mdc-imports')",
+  "scripts": {
+    "build": "nuxi build",
+    "preview": "node .output/server/index.mjs",
+    "build:broken": "NUXT_EMIT_ROUTE_CHUNK_ERROR=automatic-immediate nuxi build",
+    "build:fixed": "NUXT_EMIT_ROUTE_CHUNK_ERROR=automatic nuxi build",
+    "test": "playwright test",
+    "test:broken": "pnpm build:broken && playwright test",
+    "test:fixed": "pnpm build:fixed && playwright test"
+  },
+  "dependencies": {
+    "@nuxtjs/mdc": "^0.22.1",
+    "nuxt": "4.5.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
